@@ -2,12 +2,65 @@
 
 from django.db import migrations
 
+from django.db import migrations
+import random
+
+from training.models import do_training
+
+
+def populate_data(apps, schema_editor):
+    Activity = apps.get_model("training", "Activity")
+    User = apps.get_model("auth", "User")
+    UserActivity = apps.get_model("training", "UserActivity")
+    UserActivityLog = apps.get_model("training", "UserActivityLog")
+
+    # Create Activities
+    Activity.objects.create(
+        name="Satelite dish inquiry",
+        description="Description 1",
+        start_date="2024-05-01 00:00:00",
+        end_date="2024-05-02 00:00:00",
+    )
+    Activity.objects.create(
+        name="Customer complaint",
+        description="Description 2",
+        start_date="2024-05-03 00:00:00",
+        end_date="2024-05-04 00:00:00",
+    )
+    Activity.objects.create(
+        name="Custommer retention",
+        description="Description 3",
+        start_date="2024-08-05 00:00:00",
+        end_date="2024-09-06 00:00:00",
+    )
+
+    # Create Users
+    User.objects.create_user(username="user1", password="password1")
+    User.objects.create_user(username="user2", password="password2")
+    User.objects.create_user(username="user3", password="password3")
+
+    # Create UserActivities
+    users = User.objects.all()
+    activities = Activity.objects.all()
+
+    for user in users:
+        for activity in activities:
+            UserActivity.objects.create(user=user, activity=activity)
+
+    # Create UserActivityLogs
+    user_activities = UserActivity.objects.all()
+
+    for user_activity in user_activities:
+        score = do_training()  # Update the function as per your requirements
+        UserActivityLog.objects.create(user_activity=user_activity, score=score)
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('training', '0001_initial'),
+        ("training", "0001_initial"),
     ]
 
     operations = [
+        migrations.RunPython(populate_data),
     ]
