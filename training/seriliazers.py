@@ -38,7 +38,7 @@ class UserActivitySerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ("user", "activity", "created_at", "updated_at")
+        read_only_fields = ("activity", "created_at", "updated_at")
 
 
 class UserActivityLogSerializer(serializers.ModelSerializer):
