@@ -33,20 +33,32 @@ class UserActivitySerializer(serializers.ModelSerializer):
         fields = [
             # "activity_id",
             "user",
-            # "activity",
+            "activity",
             "completed",
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ("created_at", "updated_at")
+        read_only_fields = ("user", "activity", "created_at", "updated_at")
 
 
 class UserActivityLogSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    activity_name = serializers.SerializerMethodField()
+
     class Meta:
         model = UserActivityLog
-        fields = ["user_activity", "score", "created_at", "started_at", "ended_at"]
-        read_only_fields = (
+        fields = [
+            "user",
+            "activity_name",
+            "score",
             "created_at",
             "started_at",
             "ended_at",
-        )
+        ]
+        read_only_fields = ("created_at", "started_at", "ended_at")
+
+    def get_user(self, obj):
+        return obj.user_activity.user.username
+
+    def get_activity_name(self, obj):
+        return obj.user_activity.activity.name
