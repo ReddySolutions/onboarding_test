@@ -1,0 +1,44 @@
+.table {
+    width: 100%;
+    margin-top: 30px;
+    color: rgb(123, 127, 132);
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    font-size: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid;
+}
+
+td {
+    border-bottom: 1px solid;
+    padding: 10px 0px;
+    font-size: 15px;
+}
+
+td span{
+    color: #fff;
+}
+
+td img {
+    width: 35px;
+    border-radius: 50%;
+}
+
+.table-wins {
+    border: 1px solid #25303d;
+    background-color: #25303d;
+    border-radius: 20px;
+    padding: 5px;
+    display: flex;
+    width: fit-content;
+}
+
+.table-wins img {
+    width: 20px;
+    padding: 5px;
+}
