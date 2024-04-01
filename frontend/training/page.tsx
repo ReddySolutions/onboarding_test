@@ -43,10 +43,11 @@ const TrainingPage = () => {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const imitateUser = Math.floor(Math.random() * 4) + 1;
+    //console.log(imitateUser);
 
     const body = {
       activity_name: data.training,
-      //user: imitateUser,
+      user: imitateUser,
     };
 
     // Make the POST request to logout endpoint
@@ -63,7 +64,7 @@ const TrainingPage = () => {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: `${errorBody}`,
+        description: `${errorBody.user || errorBody.error}`,
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
     }

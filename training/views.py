@@ -27,6 +27,7 @@ def list_scoreboard(request: Request):
 def do_activity(request: Request):
     score = do_training()
     activity_name = request.data.get("activity_name")
+    user = request.data.get("user")
     if not activity_name:
         return Response(
             {"error": "activity_name is required"}, status=status.HTTP_400_BAD_REQUEST
@@ -38,7 +39,7 @@ def do_activity(request: Request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     user_activity, created = UserActivity.objects.get_or_create(
-        user=request.user,
+        user=user,
         activity=activity_obj,
         defaults={"completed": serializer.validated_data.get("completed", False)},
     )
@@ -51,5 +52,6 @@ def do_activity(request: Request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(
-            {"error": "UserActivity already exists"}, status=status.HTTP_400_BAD_REQUEST
+            {"error": f"UserActivity already exists for {request.user}"},
+            status=status.HTTP_400_BAD_REQUEST,
         )
