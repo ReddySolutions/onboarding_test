@@ -1,0 +1,53 @@
+.card {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px;
+}
+
+.course-image {
+    width: 100%;
+    height: 150px;
+    background-color: #ccc;
+    background-image: url('https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I');
+    background-size: cover;
+    background-position: center;
+}
+
+.course-content {
+    padding: 20px;
+}
+
+.course-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.enroll-button {
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    background-color: #e8471e;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.enroll-button:hover {
+    background-color: #0056b3;
+}
+.complete-button {
+    background-color: #007bff;
+}
+
+.scoreCard {
+    background-color:  #ddd;
+    width: 40%;
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 2px;
+
+}

@@ -1,0 +1,41 @@
+.card {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px;
+}
+
+.course-image {
+    width: 100%;
+    height: 150px;
+    background-color: #ccc;
+    background-image: url('https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I');
+    background-size: cover;
+    background-position: center;
+}
+
+.course-content {
+    padding: 20px;
+}
+
+.course-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.course-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #666;
+}
+
+.indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: green; /* Indicator color for taken course */
+}

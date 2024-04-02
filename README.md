@@ -1,5 +1,32 @@
 # Reddy Onboarding - Interview task
 
+## How to run project locally
+### Start backend service
+```bash
+git checkout david
+```
+```bash
+python -m venv venv && source venv/bin/activate
+```
+```bash
+poetry install
+```
+```bash
+python manage.py runserver
+```
+
+### Start frontend app
+```bash
+cd frontend
+```
+```bash
+npm install
+```
+```bash
+npm start
+```
+
+
 ## Why are you here
 
 You are reading this, mostly, because one of our Engineers (Aida) dislikes
