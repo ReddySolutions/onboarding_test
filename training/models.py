@@ -2,6 +2,7 @@ import random
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 def do_training():
@@ -17,8 +18,13 @@ class Activity(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def is_open(self) -> bool:
+        now = timezone.now()
+        return self.start_date <= now <= self.end_date
+
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.id}"
 
 
 class UserActivity(models.Model):
@@ -29,7 +35,11 @@ class UserActivity(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.activity.name}"
+        return f"{self.id} - {self.user.username} - {self.activity.name}"
+
+    def get_latest_score(self):
+        log = self.useractivitylog_set.first()
+        return log.score if log else None
 
 
 class UserActivityLog(models.Model):
@@ -40,4 +50,4 @@ class UserActivityLog(models.Model):
     ended_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
-        return f"{self.user_activity.user.username} - {self.user_activity.activity.name} - {self.score}"
+        return f"{self.user_activity.user.username} - {self.user_activity.activity.name} - {self.user_activity.id} - {self.score}"
