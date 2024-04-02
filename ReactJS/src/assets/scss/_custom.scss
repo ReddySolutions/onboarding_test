@@ -1,0 +1,27 @@
+.header-card
+{
+    .MuiTypography-root
+    {
+        animation: SlideY;
+    }
+}
+
+
+
+
+
+
+
+@keyframes slideY {
+    0%,
+    50%,
+    100% {
+      transform: translateY(0px);
+    }
+    25% {
+      transform: translateY(-10px);
+    }
+    75% {
+      transform: translateY(10px);
+    }
+  }
