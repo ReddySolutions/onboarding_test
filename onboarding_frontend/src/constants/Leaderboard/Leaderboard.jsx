@@ -12,7 +12,7 @@ import { styled } from "@mui/material";
 
 const columns = [
   { id: 'user', label: 'User', minWidth: 170 },
-  { id: 'activity', label: 'Summary', minWidth: 170 },
+  { id: 'activity', label: 'Training', minWidth: 170 },
   { id: 'score', label: 'Score', minWidth: 100 },
   {
     id: 'started_at',
@@ -100,7 +100,7 @@ const Leaderboard = () => {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align} style={{ fontFamily: 'Rubik'}}>
-                          {column.id === 'score' && isIncluded(row.activity) && set.size <= activities.length && page === 0 ? <div>{value}<EmojiEventsIcon sx={{verticalAlign: 'bottom', color: 'gold'}}/></div> : value}
+                          {(column.id === 'score' && isIncluded(row.activity) && set.size <= activities.length && page === 0) ? <div>{value}<EmojiEventsIcon sx={{verticalAlign: 'bottom', color: 'gold'}}/></div> : value}
                         </TableCell>
                       );
                     })}

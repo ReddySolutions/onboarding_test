@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
@@ -12,8 +12,16 @@ import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import WorkHistoryOutlinedIcon from '@mui/icons-material/WorkHistoryOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import StackedLineChartOutlinedIcon from '@mui/icons-material/StackedLineChartOutlined';
+import LoadingModal from '../../components/LoadingModal';
 
 const Panel = () => {
+    const [trainings, setTrainings] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    useEffect(() => {
+        fetch('http://localhost:8000/training/activities/')
+          .then(res => res.json())
+          .then(data => setTrainings(data))
+    },[])
 
     function randomIntFromInterval(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min)
@@ -31,7 +39,8 @@ const Panel = () => {
     }
 
     const handleClick = (value) => {
-        const userNum = randomIntFromInterval(1, 6);
+        setShowModal(true)
+        const userNum = randomIntFromInterval(1, 3);
         const newData = {
             activity: value,
             user: userNum
@@ -40,7 +49,12 @@ const Panel = () => {
             .then((data) => {
                 console.log(data)
             })
-        
+    }
+
+    if(showModal){
+        setTimeout(function(){
+            window.location.reload();
+        }, 5000);
     }
     
     return(
@@ -52,6 +66,7 @@ const Panel = () => {
             width: '100%'
             }}
         >
+            {showModal && <LoadingModal/>}
             <Box>
                 <List>
                     <Typography sx={{textAlign:'center', fontWeight:'bolder', fontFamily: 'Rubik', paddingTop: '1rem'}}>Leaderboards</Typography>
@@ -94,31 +109,21 @@ const Panel = () => {
                 </List>
                 <Divider/>
                 <List>
-                    <Typography sx={{textAlign:'center', fontWeight:'bolder', fontFamily: 'Rubik', paddingTop: '1rem'}}>Play</Typography>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => handleClick('Satelite dish inquiry')}>
-                            <ListItemIcon>
-                                <AssessmentOutlinedIcon/>
-                            </ListItemIcon>
-                            <ListItemText><Typography sx={{color: '#313bac', fontWeight: '400', fontFamily: 'Rubik'}}>Activity 1</Typography></ListItemText>
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => handleClick('Customer complaint')}>
-                            <ListItemIcon>
-                                <AssessmentOutlinedIcon/>
-                            </ListItemIcon>
-                            <ListItemText><Typography sx={{color: '#313bac', fontWeight: '400', fontFamily: 'Rubik'}}>Activity 2</Typography></ListItemText>
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => handleClick('Custommer retention')}>
-                            <ListItemIcon>
-                                <AssessmentOutlinedIcon/>
-                            </ListItemIcon>
-                            <ListItemText><Typography sx={{color: '#313bac', fontWeight: '400', fontFamily: 'Rubik'}}>Activity 3</Typography></ListItemText>
-                        </ListItemButton>
-                    </ListItem>
+                    <Typography sx={{textAlign:'center', fontWeight:'bolder', fontFamily: 'Rubik', paddingTop: '1rem'}}>Complete Training</Typography>
+                    {
+                        trainings.map((training) => {
+                            return(
+                                <ListItem disablePadding>
+                                    <ListItemButton onClick={() => handleClick(training.name)}>
+                                        <ListItemIcon>
+                                            <AssessmentOutlinedIcon/>
+                                        </ListItemIcon>
+                                        <ListItemText><Typography sx={{color: '#313bac', fontWeight: '400', fontFamily: 'Rubik'}}>{training.name}</Typography></ListItemText>
+                                    </ListItemButton>
+                                </ListItem>
+                            )
+                        })
+                    }
                 </List>
                 <Divider />
                 <Typography sx={{textAlign:'center', fontWeight:'bolder', fontFamily: 'Rubik', paddingTop: '1rem'}}>Misc. Data</Typography>

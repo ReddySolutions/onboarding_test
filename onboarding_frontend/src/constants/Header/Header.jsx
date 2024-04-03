@@ -35,7 +35,8 @@ const Header = () => {
               flexGrow: 1, 
               textAlign: 'left', 
               paddingLeft: '1rem',
-              color: '#030303'
+              color: '#030303',
+              fontWeight: 'Bolder'
             }}>
             Reddy Boards
           </Typography>

@@ -3,10 +3,15 @@ import { Grid } from "@mui/material";
 import Panel from "../Panel/Panel";
 import Leaderboard from "../Leaderboard/Leaderboard";
 import './Content.css';
+import {motion} from 'framer-motion';
 
 const Content = () => {
     return(
-        <div className="content-main">
+            <motion.div
+                 whileInView={{ x: [-100, 0], opacity: [0,1]}}
+                 transition={{ duration: 0.5 }}
+                 className="content-main"
+            >
                 <Grid 
                     className="content-main" 
                     container 
@@ -22,7 +27,8 @@ const Content = () => {
                         <Leaderboard/>
                     </Grid>
                 </Grid>
-        </div>
+            </motion.div>
+       
     )
 }
 
