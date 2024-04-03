@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        margin-top: 0;
+        text-align: center;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 4px;
+      }
+      a {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+      a:hover {
+        background-color: #0056b3;
+      }
+
+      .progress-bar {
+        position: relative;
+        height: 20px;
+        background-color: #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0;
+        background-color: #007bff;
+        animation: fillAnimation 5s forwards;
+      }
+      @keyframes fillAnimation {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Progress Summary</h1>
+      <h2>Welcome, {{ request.user.first_name }}!</h2>
+
+      <h3>Your Progress:</h3>
+      <ul>
+        {% for log in user_activity_logs %}
+        <li>{{ log.user_activity.activity.name }} - Score: {{ log.score }}</li>
+        {% empty %}
+        <li>No activities completed yet.</li>
+        {% endfor %}
+      </ul>
+
+      <!-- Progress bar with animation, Calculate width based on average score -->
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+
+      <a href="{% url 'leaderboard' %}">Back to Leaderboard</a>
+    </div>
+  </body>
+</html>

@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from training.views import leaderboard, progress
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('leaderboard/', leaderboard, name='leaderboard'),
+     path('progress/', progress, name='progress')
 ]
