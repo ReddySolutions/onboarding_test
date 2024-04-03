@@ -1,0 +1,9 @@
+
+.App, html {
+  height: fit-content;
+  width: 100%;
+  background-color: #edf2f8;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
