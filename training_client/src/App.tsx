@@ -16,12 +16,7 @@ function App() {
           <NavBar />
         </GridItem>
 
-        <GridItem
-          area="main"
-          bg="dodgerblue"
-          justifySelf="center"
-          alignSelf="center"
-        >
+        <GridItem area="main" justifySelf="center" alignSelf="center">
           <LeaderboardGrid />
         </GridItem>
       </Grid>

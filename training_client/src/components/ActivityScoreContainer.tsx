@@ -5,7 +5,7 @@ interface Props {
 }
 
 const ActivityScoreContainer = ({ score }: Props) => {
-  const color = score === 100 ? "green" : score > 60 ? "yellow" : "red";
+  const color = score >= 90 ? "green" : score >= 75 ? "yellow" : "red";
   return (
     <Badge
       colorScheme={color}
