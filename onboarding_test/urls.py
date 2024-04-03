@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from training.views import all_users, user_activities, perform_activity
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('users/', all_users, name='all_users'),
+    path('users/<int:user_id>/activities/', user_activities, name='user_activities'),
+    path('perform-activity/<int:activity_id>/',perform_activity, name='perform_activity'),
 ]
+

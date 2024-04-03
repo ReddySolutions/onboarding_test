@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Activities</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Set background color */
+            margin: 0;
+            padding: 0;
+         
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Center the content vertically */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .container-middle{
+            background-color: #fff;
+            padding: 30px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333; /* Heading color */
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%; /* Adjust table width */
+            max-width: 800px; /* Maximum width */
+            background-color: #fff; /* Table background color */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow */
+        }
+        
+        th, td {
+            padding: 12px 20px; /* Cell padding */
+            text-align: left; /* Text alignment */
+        }
+        
+        th {
+            background-color: #007bff; /* Header background color */
+            color: #fff; /* Header text color */
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2; /* Alternate row color */
+        }
+        
+        tbody tr:hover {
+            background-color: #ddd; /* Hover row color */
+        }
+        
+        td {
+            border-bottom: 1px solid #ddd; /* Bottom border for cells */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="container-middle">
+            <h1>Activities for {{ user.username }}</h1>
+            {% if message %}
+            <p>{{ message }}</p>
+            {% else %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Activity Name</th>
+                        <th>Score</th>
+                        <th>Perform</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in activities %}
+                    <tr>
+                        <td>{{ activity.user.username }}</td>
+                        <td>{{ activity.activity.name }}</td>
+                        <td>
+                            {% for log in activity.useractivitylog_set.all %}
+                                {{ log.score }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                No scores available
+                            {% endfor %}
+                        </td>
+                        
+                            <td>
+                                    {% if activity.useractivitylog_set.all %}
+                                        <button disabled>Completed</button>
+                                    {% else %}
+                                        <button onclick="performActivity('{{ activity.id }}')">Perform</button>
+                                    {% endif %}
+                                
+                            </td>
+                        
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+<script>
+    function performActivity(activityId) {
+        fetch('/perform-activity/' + activityId + '/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+
+</html>
+

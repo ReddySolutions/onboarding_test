@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Set background color */
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Center the content vertically */
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .container-middle{
+            background-color: #fff;
+            padding: 30px;
+            width: 100%;
+        }
+        table{
+            width: 80%;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333; /* Heading color */
+        }
+
+        ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0;
+            text-align: center; /* Center the list items */
+        }
+
+        li {
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        a {
+            text-decoration: none; /* Remove underline */
+            color: #007bff; /* Link color */
+            font-weight: bold;
+            background-color: #fff; /* Background color */
+            padding: 10px 20px; /* Padding */
+            border-radius: 5px; /* Rounded corners */
+            display: inline-block;
+            transition: background-color 0.3s ease; /* Smooth transition */
+            background-color: #f0f0f0;
+        }
+
+        a:hover {
+            background-color: #007bff; /* Hover background color */
+            color: #fff; /* Hover text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="container-middle">
+            <h1>All Users</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td><a href="{% url 'user_activities' user.id %}">{{ user.username }}</a></td>
+                        <td>{{user.avg_score| floatformat:"2" |default:"None" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
