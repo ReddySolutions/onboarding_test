@@ -1,6 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 
 import NavBar from "./components/Navbar";
+import LeaderboardGrid from "./components/LeaderboardGrid";
 
 function App() {
   return (
@@ -15,8 +16,13 @@ function App() {
           <NavBar />
         </GridItem>
 
-        <GridItem area="main" bg="dodgerblue">
-          Main
+        <GridItem
+          area="main"
+          bg="dodgerblue"
+          justifySelf="center"
+          alignSelf="center"
+        >
+          <LeaderboardGrid />
         </GridItem>
       </Grid>
     </>
