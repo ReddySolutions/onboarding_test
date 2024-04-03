@@ -39,10 +39,18 @@ class UserActivity(models.Model):
 
 class UserActivityLog(models.Model):
     user_activity = models.ForeignKey(UserActivity, on_delete=models.CASCADE)
-    score = models.IntegerField()
+    score = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     started_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(auto_now=True, null=True)
 
+    def save(self, *args, **kwargs):
+        self.score = do_training()
+        if self.score == 100:
+            self.user_activity.completed = True
+            self.user_activity.save()
+        
+        super().save(*args, **kwargs) 
+
     def __str__(self):
-        return f"{self.user_activity.user.username} - {self.user_activity.activity.name} - {self.score}"
+        return f"{self.user_activity.avatar} - {self.user_activity.user.username} - {self.user_activity.activity.name} - {self.score}"
