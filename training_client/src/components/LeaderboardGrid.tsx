@@ -21,20 +21,19 @@ const LeaderboardGrid = () => {
       >
         {isLoading &&
           skeletons.map((sk) => (
-            <LeaderboardCardContainer>
-              <LeaderboardEntryCardSkeleton key={sk} />
+            <LeaderboardCardContainer key={sk}>
+              <LeaderboardEntryCardSkeleton />
             </LeaderboardCardContainer>
           ))}
         {userActivityLogs.map((log, index) => {
           const { avatar, username, activity, score } = extractAttributes(log);
           return (
-            <LeaderboardCardContainer>
+            <LeaderboardCardContainer key={index}>
               <LeaderboardEntryCard
                 avatar={avatar}
                 username={username}
                 activity={activity}
                 score={score}
-                key={index}
               />
             </LeaderboardCardContainer>
           );

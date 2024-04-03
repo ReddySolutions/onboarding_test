@@ -1,6 +1,12 @@
 export const extractAttributes = (userItem: string) => {
   const userItemArray = userItem.split("-");
-  const avatar = processImage(userItemArray[0]);
+  let image = userItemArray[0];
+  if (!image.startsWith("https")) {
+    image = "https://i.pravatar.cc/400";
+  }
+
+  const avatar = processImage(image);
+  console.log("0", image);
   const username = userItemArray[1];
   const activity = userItemArray[2];
   const score = +userItemArray[3];
@@ -9,9 +15,6 @@ export const extractAttributes = (userItem: string) => {
 };
 
 const processImage = (imageUrl: string) => {
-  const placeholderImage = "https://i.pravatar.cc/50";
-  if (imageUrl === null) return placeholderImage;
-
   // guarantee unique images
   const uniqueId = Math.floor(Math.random() * 1000000000);
 
