@@ -3,7 +3,7 @@ import random
 from django.db import models
 from django.contrib.auth.models import User
 
-
+imageUrl = 'https://i.pravatar.cc/400'
 def do_training():
     return random.randint(0, 100)
 
@@ -27,6 +27,11 @@ class UserActivity(models.Model):
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    avatar = models.CharField(max_length=255, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.avatar = imageUrl
+        super().save(*args, **kwargs) 
 
     def __str__(self):
         return f"{self.user.username} - {self.activity.name}"
@@ -34,10 +39,18 @@ class UserActivity(models.Model):
 
 class UserActivityLog(models.Model):
     user_activity = models.ForeignKey(UserActivity, on_delete=models.CASCADE)
-    score = models.IntegerField()
+    score = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     started_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(auto_now=True, null=True)
 
+    def save(self, *args, **kwargs):
+        self.score = do_training()
+        if self.score == 100:
+            self.user_activity.completed = True
+            self.user_activity.save()
+        
+        super().save(*args, **kwargs) 
+
     def __str__(self):
-        return f"{self.user_activity.user.username} - {self.user_activity.activity.name} - {self.score}"
+        return f"{self.user_activity.avatar} - {self.user_activity.user.username} - {self.user_activity.activity.name} - {self.score}"
