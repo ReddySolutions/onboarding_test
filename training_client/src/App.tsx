@@ -1,9 +1,7 @@
-
+import { Button } from "@chakra-ui/react";
 
 function App() {
- return (
-  <div>Onborading test UI</div>
- )
+  return <Button bg="coral">Onborading test UI</Button>;
 }
 
-export default App
+export default App;
