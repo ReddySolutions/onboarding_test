@@ -1,0 +1,14 @@
+.TabNav .nav-link.active {
+  background-color: #56949f !important;
+  color: white !important;
+  border-color: #56949f !important;
+}
+
+.TabNav .nav-link {
+  background-color: transparent !important;
+  color: black !important;
+}
+
+.TabNav .nav-item {
+  margin-right: 10px;
+}
