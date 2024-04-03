@@ -1,0 +1,26 @@
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile img {
+    width: 48px;
+    border-radius: 50%;
+    height: 48px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: fit-content;
+    padding: 46px;
+    gap: 1rem;
+}
+
+.profile span {
+    color: white;
+    line-height: 30px;
+}

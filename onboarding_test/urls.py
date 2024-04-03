@@ -16,7 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+from training.views import LeaderboardModelViewSet
+from django.urls.conf import include
+
+router = DefaultRouter()
+router.register('leaderboard', LeaderboardModelViewSet, basename='leaderboard')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls))
 ]
